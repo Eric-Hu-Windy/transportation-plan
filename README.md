@@ -27,6 +27,8 @@ https://dev.mysql.com/downloads/mysql/
 ```
 
 3. 启动
+
+下载release的jar包（transportation-plan-1.0.0.jar）后执行命令
 ```
 java -jar transportation-plan-backend.jar
 ```
