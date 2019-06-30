@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chuckie.transportationplan.mapper.PlanMapper">
+  <resultMap id="BaseResultMap" type="com.chuckie.transportationplan.model.Plan">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="from_province" jdbcType="VARCHAR" property="fromProvince" />
+    <result column="from_city" jdbcType="VARCHAR" property="fromCity" />
+    <result column="from_address" jdbcType="VARCHAR" property="fromAddress" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="to_address" jdbcType="VARCHAR" property="toAddress" />
+    <result column="goods" jdbcType="VARCHAR" property="goods" />
+    <result column="motorcade" jdbcType="VARCHAR" property="motorcade" />
+    <result column="cost" jdbcType="VARCHAR" property="cost" />
+    <result column="salesman" jdbcType="VARCHAR" property="salesman" />
+    <result column="serial_no" jdbcType="VARCHAR" property="serialNo" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, date, time, from_province, from_city, from_address, contact, to_address, goods, 
+    motorcade, cost, salesman, serial_no, created_at, updated_at, is_deleted
+  </sql>
+  <select id="selectByExample" parameterType="com.chuckie.transportationplan.model.PlanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from plan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from plan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chuckie.transportationplan.model.PlanExample">
+    delete from plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chuckie.transportationplan.model.Plan">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into plan (date, time, from_province, 
+      from_city, from_address, contact, 
+      to_address, goods, motorcade, 
+      cost, salesman, serial_no, 
+      created_at, updated_at, is_deleted
+      )
+    values (#{date,jdbcType=DATE}, #{time,jdbcType=VARCHAR}, #{fromProvince,jdbcType=VARCHAR}, 
+      #{fromCity,jdbcType=VARCHAR}, #{fromAddress,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, 
+      #{toAddress,jdbcType=VARCHAR}, #{goods,jdbcType=VARCHAR}, #{motorcade,jdbcType=VARCHAR}, 
+      #{cost,jdbcType=VARCHAR}, #{salesman,jdbcType=VARCHAR}, #{serialNo,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chuckie.transportationplan.model.Plan">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="date != null">
+        date,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="fromProvince != null">
+        from_province,
+      </if>
+      <if test="fromCity != null">
+        from_city,
+      </if>
+      <if test="fromAddress != null">
+        from_address,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="toAddress != null">
+        to_address,
+      </if>
+      <if test="goods != null">
+        goods,
+      </if>
+      <if test="motorcade != null">
+        motorcade,
+      </if>
+      <if test="cost != null">
+        cost,
+      </if>
+      <if test="salesman != null">
+        salesman,
+      </if>
+      <if test="serialNo != null">
+        serial_no,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="date != null">
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="fromProvince != null">
+        #{fromProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="fromCity != null">
+        #{fromCity,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAddress != null">
+        #{fromAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="toAddress != null">
+        #{toAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="goods != null">
+        #{goods,jdbcType=VARCHAR},
+      </if>
+      <if test="motorcade != null">
+        #{motorcade,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null">
+        #{cost,jdbcType=VARCHAR},
+      </if>
+      <if test="salesman != null">
+        #{salesman,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNo != null">
+        #{serialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chuckie.transportationplan.model.PlanExample" resultType="java.lang.Long">
+    select count(*) from plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update plan
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromProvince != null">
+        from_province = #{record.fromProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromCity != null">
+        from_city = #{record.fromCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromAddress != null">
+        from_address = #{record.fromAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact != null">
+        contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toAddress != null">
+        to_address = #{record.toAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goods != null">
+        goods = #{record.goods,jdbcType=VARCHAR},
+      </if>
+      <if test="record.motorcade != null">
+        motorcade = #{record.motorcade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cost != null">
+        cost = #{record.cost,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesman != null">
+        salesman = #{record.salesman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serialNo != null">
+        serial_no = #{record.serialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update plan
+    set id = #{record.id,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=DATE},
+      time = #{record.time,jdbcType=VARCHAR},
+      from_province = #{record.fromProvince,jdbcType=VARCHAR},
+      from_city = #{record.fromCity,jdbcType=VARCHAR},
+      from_address = #{record.fromAddress,jdbcType=VARCHAR},
+      contact = #{record.contact,jdbcType=VARCHAR},
+      to_address = #{record.toAddress,jdbcType=VARCHAR},
+      goods = #{record.goods,jdbcType=VARCHAR},
+      motorcade = #{record.motorcade,jdbcType=VARCHAR},
+      cost = #{record.cost,jdbcType=VARCHAR},
+      salesman = #{record.salesman,jdbcType=VARCHAR},
+      serial_no = #{record.serialNo,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chuckie.transportationplan.model.Plan">
+    update plan
+    <set>
+      <if test="date != null">
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="fromProvince != null">
+        from_province = #{fromProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="fromCity != null">
+        from_city = #{fromCity,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAddress != null">
+        from_address = #{fromAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="toAddress != null">
+        to_address = #{toAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="goods != null">
+        goods = #{goods,jdbcType=VARCHAR},
+      </if>
+      <if test="motorcade != null">
+        motorcade = #{motorcade,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null">
+        cost = #{cost,jdbcType=VARCHAR},
+      </if>
+      <if test="salesman != null">
+        salesman = #{salesman,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNo != null">
+        serial_no = #{serialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chuckie.transportationplan.model.Plan">
+    update plan
+    set date = #{date,jdbcType=DATE},
+      time = #{time,jdbcType=VARCHAR},
+      from_province = #{fromProvince,jdbcType=VARCHAR},
+      from_city = #{fromCity,jdbcType=VARCHAR},
+      from_address = #{fromAddress,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      to_address = #{toAddress,jdbcType=VARCHAR},
+      goods = #{goods,jdbcType=VARCHAR},
+      motorcade = #{motorcade,jdbcType=VARCHAR},
+      cost = #{cost,jdbcType=VARCHAR},
+      salesman = #{salesman,jdbcType=VARCHAR},
+      serial_no = #{serialNo,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

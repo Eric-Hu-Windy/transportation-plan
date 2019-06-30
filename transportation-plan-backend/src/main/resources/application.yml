@@ -1,0 +1,29 @@
+server:
+  port: 8888
+  tomcat:
+    basedir: ./
+    accesslog:
+      enabled: true
+      directory: logs/access/
+      pattern: "%h %l %u %t %r %s %b %D"
+      prefix: access_log
+      suffix: .log
+      file-date-format: .yyyy-MM-dd
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/transportation-plan?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: admin
+    driverClassName: com.mysql.jdbc.Driver
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+mybatis:
+  typeAliasesPackage: com.chuckie.transportationplan
+  mapperLocations: classpath:mapper/*.xml
+logging:
+  level:
+    com:
+      chuckie:
+        transportationplan:
+          mapper: debug
