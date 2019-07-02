@@ -28,6 +28,7 @@
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button @click="editPlan(scope.row.id)" type="text" size="small">编辑</el-button>
+            <el-button @click="deletePlan(scope.row.id)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -36,7 +37,7 @@
 </template>
 
 <script>
-import PlanApi from '@/api/plan';
+import PlanApi from '@/api/plan'
 
 export default {
   name: 'planIndex',
@@ -47,7 +48,7 @@ export default {
       form: {
         name: 'filterForm'
       }
-    };
+    }
   },
   mounted () {
     this.getPlans()
@@ -71,9 +72,24 @@ export default {
     },
     editPlan (id) {
       this.$router.push({name: 'plan-edit', params: { id }})
+    },
+    deletePlan (id) {
+      this.$confirm('确定要删除这次安排吗?', '确认', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        PlanApi.deletePlanById(id).then(() => {
+          this.getPlans()
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+        })
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

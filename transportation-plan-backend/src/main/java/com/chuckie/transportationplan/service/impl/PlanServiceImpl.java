@@ -31,6 +31,14 @@ public class PlanServiceImpl implements PlanService {
     }
 
     @Override
+    public void delete(int id) {
+        Plan plan = new Plan();
+        plan.setId(id);
+        plan.setIsDeleted(true);
+        planMapper.updateByPrimaryKeySelective(plan);
+    }
+
+    @Override
     public List<Plan> getAll() {
         PlanExample planExample = new PlanExample();
         planExample.createCriteria().andIsDeletedEqualTo(false);

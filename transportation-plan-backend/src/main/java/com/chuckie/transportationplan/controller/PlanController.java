@@ -28,6 +28,11 @@ public class PlanController {
         planService.update(id, plan);
     }
 
+    @PutMapping("/{id}/delete")
+    public void delete(@PathVariable int id) {
+        planService.delete(id);
+    }
+
     @GetMapping
     public List<Plan> getAll() {
         return planService.getAll();

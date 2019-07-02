@@ -43,4 +43,5 @@ https://git-scm.com/downloads
 git clone https://github.com/Eric-Hu-Windy/transportation-plan.git
 ```
 2. 将release的jar包下载到项目文件夹下，和`start.bat`同级，改名为`transportation-plan.jar`
-3. 双击`start.bat`启动
+3. 打开之前安装的Mysql Workbench，导入`transportation-plan-backend\db\ddl.sql`并执行
+4. 双击`start.bat`启动

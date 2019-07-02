@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import PlanApi from '@/api/plan';
+import PlanApi from '@/api/plan'
 
 export default {
   name: 'planEdit',
@@ -96,7 +96,7 @@ export default {
       this.$router.go(-1)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

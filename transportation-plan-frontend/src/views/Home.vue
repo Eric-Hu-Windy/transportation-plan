@@ -10,14 +10,14 @@ export default {
   data: function () {
     return {
       date: '',
-    };
+    }
   },
   watch: {
     date: function (newValue) {
       this.$router.push({name: 'plan-index', query: { date: newValue.toLocaleDateString() }})
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

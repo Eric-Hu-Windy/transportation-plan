@@ -17,6 +17,11 @@ public interface PlanService {
      */
     void update(int id, Plan plan);
 
+    /** 根据id删除Plan
+     * @param id 要删除的Plan主键
+     */
+    void delete(int id);
+
     /** 查询所有Plan
      * @return Plan list
      */

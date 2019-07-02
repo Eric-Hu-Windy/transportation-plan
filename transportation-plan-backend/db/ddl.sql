@@ -1,5 +1,5 @@
 CREATE DATABASE `transportation-plan` /*!40100 DEFAULT CHARACTER SET utf8 */;
-CREATE TABLE `plan` (
+CREATE TABLE `transportation-plan`.`plan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `time` varchar(45) DEFAULT NULL,
